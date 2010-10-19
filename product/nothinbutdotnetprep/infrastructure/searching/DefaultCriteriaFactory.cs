@@ -18,13 +18,13 @@ namespace nothinbutdotnetprep.infrastructure.searching
 
         public Criteria<ItemToFilter> equal_to_any(params PropertyType[] values)
         {
-            return new PropertyCriteria<ItemToFilter, PropertyType>(property_accessor,
-                                                                    new IsEqualToAny<PropertyType>(values));
+            return create_property_criteria_for(new IsEqualToAny<PropertyType>(values));
         }
 
-        public Criteria<ItemToFilter> not_equal_to(PropertyType value)
+
+        public Criteria<ItemToFilter> create_property_criteria_for(Criteria<PropertyType> criteria)
         {
-            return new NotCriteria<ItemToFilter>(equal_to(value));
+            return new PropertyCriteria<ItemToFilter, PropertyType>(property_accessor, criteria);
         }
     }
 }

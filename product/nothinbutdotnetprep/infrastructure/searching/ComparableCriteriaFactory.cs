@@ -6,24 +6,21 @@ namespace nothinbutdotnetprep.infrastructure.searching
     public class ComparableCriteriaFactory<ItemToFilter, PropertyType> : CriteriaFactory<ItemToFilter, PropertyType>
         where PropertyType : IComparable<PropertyType>
     {
-        Func<ItemToFilter, PropertyType> accessor;
         CriteriaFactory<ItemToFilter, PropertyType> original;
 
-        public ComparableCriteriaFactory(Func<ItemToFilter, PropertyType> accessor,
-                                         CriteriaFactory<ItemToFilter, PropertyType> original)
+        public ComparableCriteriaFactory(CriteriaFactory<ItemToFilter, PropertyType> original)
         {
-            this.accessor = accessor;
             this.original = original;
         }
 
         public Criteria<ItemToFilter> greater_than(PropertyType value)
         {
-            return get_property_criteria(new FallInRange<PropertyType>(new RangeWithNoUpperBound<PropertyType>(value)));
+            return create_property_criteria_for(new FallInRange<PropertyType>(new RangeWithNoUpperBound<PropertyType>(value)));
         }
 
         public Criteria<ItemToFilter> between(PropertyType start, PropertyType end)
         {
-            return get_property_criteria(new IsBetween<PropertyType>(start, end));
+            return create_property_criteria_for(new IsBetween<PropertyType>(start, end));
         }
 
         public Criteria<ItemToFilter> equal_to(PropertyType value_to_equal)
@@ -36,14 +33,10 @@ namespace nothinbutdotnetprep.infrastructure.searching
             return original.equal_to_any(values);
         }
 
-        public Criteria<ItemToFilter> not_equal_to(PropertyType value)
-        {
-            return original.not_equal_to(value);
-        }
 
-        private Criteria<ItemToFilter> get_property_criteria(Criteria<PropertyType> criteria)
+        public Criteria<ItemToFilter> create_property_criteria_for(Criteria<PropertyType> criteria)
         {
-            return new PropertyCriteria<ItemToFilter, PropertyType>(accessor, criteria);
+            return original.create_property_criteria_for(criteria);
         }
     }
 }

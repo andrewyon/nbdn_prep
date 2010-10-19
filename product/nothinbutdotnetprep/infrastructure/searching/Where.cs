@@ -7,8 +7,7 @@ namespace nothinbutdotnetprep.infrastructure.searching
         public static ComparableCriteriaFactory<ItemToFilter, PropertyType> has_an<PropertyType>(
             Func<ItemToFilter, PropertyType> property_accessor) where PropertyType : IComparable<PropertyType>
         {
-            return new ComparableCriteriaFactory<ItemToFilter,PropertyType>(property_accessor,
-                has_a(property_accessor));
+            return new ComparableCriteriaFactory<ItemToFilter,PropertyType>(has_a(property_accessor));
         }
 
         public static DefaultCriteriaFactory<ItemToFilter, PropertyType> has_a<PropertyType>(
