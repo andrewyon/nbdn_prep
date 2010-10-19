@@ -7,6 +7,6 @@ namespace nothinbutdotnetprep.infrastructure.searching
         Criteria<ItemToFilter> equal_to(PropertyType value_to_equal);
         Criteria<ItemToFilter> equal_to_any(params PropertyType[] values);
         Criteria<ItemToFilter> not_equal_to(PropertyType value);
-        Criteria<ItemToFilter> GetCriteria(Predicate<ItemToFilter> criteria_predicate);
+        Criteria<ItemToFilter> get_criteria(Predicate<ItemToFilter> criteria_predicate);
     }
 }

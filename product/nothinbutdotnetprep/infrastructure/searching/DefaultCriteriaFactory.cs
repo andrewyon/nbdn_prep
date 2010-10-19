@@ -19,7 +19,7 @@ namespace nothinbutdotnetprep.infrastructure.searching
 
         public Criteria<ItemToFilter> equal_to_any(params PropertyType[] values)
         {
-            return GetCriteria(x => new List<PropertyType>(values).Contains(property_accessor(x)));
+            return get_criteria(x => new List<PropertyType>(values).Contains(property_accessor(x)));
         }
 
         public Criteria<ItemToFilter> not_equal_to(PropertyType value)
@@ -27,7 +27,7 @@ namespace nothinbutdotnetprep.infrastructure.searching
             return new NotCriteria<ItemToFilter>(equal_to(value));
         }
 
-        public Criteria<ItemToFilter> GetCriteria(Predicate<ItemToFilter> criteria_predicate)
+        public Criteria<ItemToFilter> get_criteria(Predicate<ItemToFilter> criteria_predicate)
         {
             return new AnonymousCriteria<ItemToFilter>(criteria_predicate);
         }

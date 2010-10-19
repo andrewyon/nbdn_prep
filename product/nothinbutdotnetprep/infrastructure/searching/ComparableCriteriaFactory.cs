@@ -17,12 +17,12 @@ namespace nothinbutdotnetprep.infrastructure.searching
 
         public Criteria<ItemToFilter> greater_than(PropertyType value)
         {
-            return GetCriteria(x => CompareExpression(x, value) > 0);
+            return get_criteria(x => CompareExpression(x, value) > 0);
         }
 
         public Criteria<ItemToFilter> between(PropertyType start, PropertyType end)
         {
-            return GetCriteria(x => CompareExpression(x, start) >= 0 &&
+            return get_criteria(x => CompareExpression(x, start) >= 0 &&
                 CompareExpression(x, end) <= 0);
         }
         
@@ -41,9 +41,9 @@ namespace nothinbutdotnetprep.infrastructure.searching
             return original.not_equal_to(value);
         }
 
-        public Criteria<ItemToFilter> GetCriteria(Predicate<ItemToFilter> criteria_predicate)
+        public Criteria<ItemToFilter> get_criteria(Predicate<ItemToFilter> criteria_predicate)
         {
-            return original.GetCriteria(criteria_predicate);
+            return original.get_criteria(criteria_predicate);
         }
     }
 }
