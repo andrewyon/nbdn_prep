@@ -18,15 +18,12 @@ namespace nothinbutdotnetprep.infrastructure.searching
 
         public Criteria<ItemToFilter> greater_than(PropertyType value)
         {
-            return new PropertyCriteria<ItemToFilter, PropertyType>(accessor,
-                                                                    new FallInRange<PropertyType>(
-                                                                        new RangeWithNoUpperBound<PropertyType>(value)));
+            return get_property_criteria(new FallInRange<PropertyType>(new RangeWithNoUpperBound<PropertyType>(value)));
         }
 
         public Criteria<ItemToFilter> between(PropertyType start, PropertyType end)
         {
-            return new PropertyCriteria<ItemToFilter, PropertyType>(accessor,
-                                                                    new IsBetween<PropertyType>(start, end));
+            return get_property_criteria(new IsBetween<PropertyType>(start, end));
         }
 
         public Criteria<ItemToFilter> equal_to(PropertyType value_to_equal)
@@ -42,6 +39,11 @@ namespace nothinbutdotnetprep.infrastructure.searching
         public Criteria<ItemToFilter> not_equal_to(PropertyType value)
         {
             return original.not_equal_to(value);
+        }
+
+        private Criteria<ItemToFilter> get_property_criteria(Criteria<PropertyType> criteria)
+        {
+            return new PropertyCriteria<ItemToFilter, PropertyType>(accessor, criteria);
         }
     }
 }
