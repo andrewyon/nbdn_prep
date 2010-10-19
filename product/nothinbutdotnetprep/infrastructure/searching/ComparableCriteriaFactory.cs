@@ -1,15 +1,16 @@
 using System;
-using System.Linq.Expressions;
+using nothinbutdotnetprep.collections;
 
 namespace nothinbutdotnetprep.infrastructure.searching
 {
-    public class ComparableCriteriaFactory<ItemToFilter,PropertyType> : CriteriaFactory<ItemToFilter,PropertyType> where PropertyType : IComparable<PropertyType> 
+    public class ComparableCriteriaFactory<ItemToFilter, PropertyType> : CriteriaFactory<ItemToFilter, PropertyType>
+        where PropertyType : IComparable<PropertyType>
     {
         Func<ItemToFilter, PropertyType> accessor;
         CriteriaFactory<ItemToFilter, PropertyType> original;
-        private Func<ItemToFilter, PropertyType, int> CompareExpression { get { return (x, y) => accessor(x).CompareTo(y); } }
 
-        public ComparableCriteriaFactory(Func<ItemToFilter, PropertyType> accessor, CriteriaFactory<ItemToFilter, PropertyType> original)
+        public ComparableCriteriaFactory(Func<ItemToFilter, PropertyType> accessor,
+                                         CriteriaFactory<ItemToFilter, PropertyType> original)
         {
             this.accessor = accessor;
             this.original = original;
@@ -17,15 +18,16 @@ namespace nothinbutdotnetprep.infrastructure.searching
 
         public Criteria<ItemToFilter> greater_than(PropertyType value)
         {
-            return get_criteria(x => CompareExpression(x, value) > 0);
+            return new PropertyCriteria<ItemToFilter, PropertyType>(accessor,
+                                                                    new IsGreaterThan<PropertyType>(value));
         }
 
         public Criteria<ItemToFilter> between(PropertyType start, PropertyType end)
         {
-            return get_criteria(x => CompareExpression(x, start) >= 0 &&
-                CompareExpression(x, end) <= 0);
+            return new PropertyCriteria<ItemToFilter, PropertyType>(accessor,
+                                                                    new IsBetween<PropertyType>(start, end));
         }
-        
+
         public Criteria<ItemToFilter> equal_to(PropertyType value_to_equal)
         {
             return original.equal_to(value_to_equal);

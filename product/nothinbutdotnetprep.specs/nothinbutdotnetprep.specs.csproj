@@ -51,9 +51,11 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MovieLibrarySpecs.cs" />
+    <Compile Include="SomeBigMessyComponentSpecs.cs" />
     <Compile Include="SomeContract.cs" />
     <Compile Include="utility\CollectionExtensions.cs" />
   </ItemGroup>
