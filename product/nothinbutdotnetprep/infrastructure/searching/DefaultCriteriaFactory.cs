@@ -5,9 +5,20 @@ namespace nothinbutdotnetprep.infrastructure.searching
     public class DefaultCriteriaFactory<ItemToFilter, PropertyType> : CriteriaFactory<ItemToFilter, PropertyType>
     {
         Func<ItemToFilter, PropertyType> property_accessor;
+        Func<Criteria<ItemToFilter>, Criteria<ItemToFilter>> alteration;
+
+        public DefaultCriteriaFactory<ItemToFilter, PropertyType> not
+        {
+            get
+            {
+                alteration = x => new NotCriteria<ItemToFilter>(x);
+                return this;
+            }
+        }
 
         public DefaultCriteriaFactory(Func<ItemToFilter, PropertyType> property_accessor)
         {
+            alteration = x => x;
             this.property_accessor = property_accessor;
         }
 
@@ -24,7 +35,9 @@ namespace nothinbutdotnetprep.infrastructure.searching
 
         public Criteria<ItemToFilter> create_property_criteria_for(Criteria<PropertyType> criteria)
         {
-            return new PropertyCriteria<ItemToFilter, PropertyType>(property_accessor, criteria);
+            return alteration(new PropertyCriteria<ItemToFilter, PropertyType>(property_accessor, criteria));
         }
+
+
     }
 }
