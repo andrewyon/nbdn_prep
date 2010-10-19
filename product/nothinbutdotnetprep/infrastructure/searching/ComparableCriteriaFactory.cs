@@ -38,10 +38,5 @@ namespace nothinbutdotnetprep.infrastructure.searching
         {
             return original.create_property_criteria_for(criteria);
         }
-
-        public DefaultCriteriaFactory<ItemToFilter, PropertyType> not
-        {
-            get { return original.not; }
-        }
     }
 }
