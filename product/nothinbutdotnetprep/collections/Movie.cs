@@ -1,5 +1,4 @@
 using System;
-using nothinbutdotnetprep.infrastructure.searching;
 
 namespace nothinbutdotnetprep.collections
 {
@@ -33,32 +32,6 @@ namespace nothinbutdotnetprep.collections
         public override int GetHashCode()
         {
             return title.GetHashCode();
-        }
-
-        public static Criteria<Movie> is_not_published_by(ProductionStudio studio)
-        {
-            return is_published_by(studio).not();
-        }
-
-        public static Criteria<Movie> is_published_by(ProductionStudio studio)
-        {
-            return new IsPublishedBy(studio);
-        }
-
-        public static Predicate<Movie> is_in_genre(Genre genre)
-        {
-            return new IsInGenre(genre).is_satisfied_by;
-        }
-
-        public static Criteria<Movie> is_published_by_pixar_or_disney()
-        {
-            return is_published_by(ProductionStudio.Pixar)
-                .or(is_published_by(ProductionStudio.Disney));
-        }
-
-        public static bool is_published_by_pixar(Movie movie)
-        {
-            throw new NotImplementedException();
         }
     }
 }

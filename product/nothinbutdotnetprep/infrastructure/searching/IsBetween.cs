@@ -1,21 +1,26 @@
 using System;
+using nothinbutdotnetprep.infrastructure.ranges;
 
 namespace nothinbutdotnetprep.infrastructure.searching
 {
     public class IsBetween<T> : Criteria<T> where T : IComparable<T>
     {
-        T start;
-        T end;
+        Criteria<T> the_range;
 
         public IsBetween(T start, T end)
         {
-            this.start = start;
-            this.end = end;
+            var starting_part = new FallInRange<T>(new RangeWithNoUpperBound<T>(start))
+                .or(new IsEqualToAny<T>(start));
+
+            var ending_part = new FallInRange<T>(new RangeWithNoLowerBound<T>(end))
+                .or(new IsEqualToAny<T>(end));
+
+            the_range = starting_part.and(ending_part);
         }
 
         public bool is_satisfied_by(T item)
         {
-            return item.CompareTo(start) >= 0 && item.CompareTo(end) <= 0;
+            return the_range.is_satisfied_by(item);
         }
     }
 }

@@ -2,6 +2,10 @@ namespace nothinbutdotnetprep.infrastructure.searching
 {
     public static class CriteriaExtensions
     {
+        public static Criteria<T> and<T>(this Criteria<T> left, Criteria<T> right)
+        {
+            return new AndCriteria<T>(left, right);
+        }
         public static Criteria<T> or<T>(this Criteria<T> left, Criteria<T> right)
         {
             return new OrCriteria<T>(left, right);

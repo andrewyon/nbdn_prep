@@ -1,5 +1,5 @@
 using System;
-using nothinbutdotnetprep.collections;
+using nothinbutdotnetprep.infrastructure.ranges;
 
 namespace nothinbutdotnetprep.infrastructure.searching
 {
@@ -19,7 +19,8 @@ namespace nothinbutdotnetprep.infrastructure.searching
         public Criteria<ItemToFilter> greater_than(PropertyType value)
         {
             return new PropertyCriteria<ItemToFilter, PropertyType>(accessor,
-                                                                    new IsGreaterThan<PropertyType>(value));
+                                                                    new FallInRange<PropertyType>(
+                                                                        new RangeWithNoUpperBound<PropertyType>(value)));
         }
 
         public Criteria<ItemToFilter> between(PropertyType start, PropertyType end)
@@ -41,11 +42,6 @@ namespace nothinbutdotnetprep.infrastructure.searching
         public Criteria<ItemToFilter> not_equal_to(PropertyType value)
         {
             return original.not_equal_to(value);
-        }
-
-        public Criteria<ItemToFilter> get_criteria(Predicate<ItemToFilter> criteria_predicate)
-        {
-            return original.get_criteria(criteria_predicate);
         }
     }
 }
