@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace nothinbutdotnetprep.infrastructure.sorting
 {
-	public class Order<ItemToCompare>
-	{
-		public static CustomComparer<ItemToCompare, PropertyType> by_descending<PropertyType>(
-			Func<ItemToCompare, PropertyType> accessor) where PropertyType : IComparable<PropertyType>
-		{
-			return new CustomComparer<ItemToCompare, PropertyType>(accessor, false);
-		}
+    public class Order<ItemToCompare>
+    {
+        public static IComparer<ItemToCompare> by_descending<PropertyType>(
+            Func<ItemToCompare, PropertyType> accessor) where PropertyType : IComparable<PropertyType>
+        {
+            return new ReverseComparer<ItemToCompare>(by(accessor));
+        }
 
-		public static CustomComparer<ItemToCompare, PropertyType> by_ascending<PropertyType>(
-			Func<ItemToCompare, PropertyType> accessor) where PropertyType : IComparable<PropertyType>
-		{
-			return new CustomComparer<ItemToCompare, PropertyType>(accessor, true);
-		}
-	}
+        public static IComparer<ItemToCompare> by<PropertyType>(
+            Func<ItemToCompare, PropertyType> accessor) where PropertyType : IComparable<PropertyType>
+        {
+            return new PropertyComparer<ItemToCompare, PropertyType>(accessor,
+                                                                     new ComparableComparer<PropertyType>());
+        }
+
+        public static void by<PropertyType>(Func<ItemToCompare, PropertyType> property_accessor,
+            params  PropertyType[] values)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
