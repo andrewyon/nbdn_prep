@@ -277,7 +277,7 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_date_published_descending = () =>
             {
-                var comparer = Order<Movie>.by_descending(x => x.date_published)
+                var comparer = Order<Movie>.by_descending(x => x.date_published);
 
 				var results = sut.all_movies().sort_using(comparer);
 

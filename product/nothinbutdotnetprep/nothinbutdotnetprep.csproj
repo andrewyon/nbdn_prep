@@ -73,6 +73,8 @@
     <Compile Include="infrastructure\searching\Where.cs" />
     <Compile Include="infrastructure\sorting\ChainedComparer.cs" />
     <Compile Include="infrastructure\sorting\ComparableComparer.cs" />
+    <Compile Include="infrastructure\sorting\NotComparableComparer.cs" />
+    <Compile Include="infrastructure\sorting\OrderingComparer.cs" />
     <Compile Include="infrastructure\sorting\PropertyComparer.cs" />
     <Compile Include="infrastructure\sorting\Order.cs" />
     <Compile Include="infrastructure\sorting\ReverseComparer.cs" />
