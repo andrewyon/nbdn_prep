@@ -3,11 +3,11 @@ using nothinbutdotnetprep.infrastructure.ranges;
 
 namespace nothinbutdotnetprep.infrastructure.searching
 {
-    public class FallInRange<T> : Criteria<T> where T : IComparable<T>
+    public class FallsInRange<T> : Criteria<T> where T : IComparable<T>
     {
         Range<T> range;
 
-        public FallInRange(Range<T> range)
+        public FallsInRange(Range<T> range)
         {
             this.range = range;
         }

@@ -1,5 +1,3 @@
-using System;
-
 namespace nothinbutdotnetprep.infrastructure.searching
 {
     public class AndCriteria<T> : Criteria<T>
@@ -17,7 +15,6 @@ namespace nothinbutdotnetprep.infrastructure.searching
         {
             return left_side.is_satisfied_by(item) &&
                 right_side.is_satisfied_by(item);
-
         }
     }
 }

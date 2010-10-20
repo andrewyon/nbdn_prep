@@ -1,9 +1,11 @@
 using System;
+using nothinbutdotnetprep.infrastructure.searching;
 
-namespace nothinbutdotnetprep.infrastructure.searching
+namespace nothinbutdotnetprep.specs.utility
 {
     public class AnonymousCriteria<T> : Criteria<T>
     {
+
         Predicate<T> condition;
 
         public AnonymousCriteria(Predicate<T> condition)

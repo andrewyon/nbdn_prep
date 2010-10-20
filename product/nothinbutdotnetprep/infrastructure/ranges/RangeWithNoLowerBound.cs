@@ -15,5 +15,6 @@ namespace nothinbutdotnetprep.infrastructure.ranges
         {
             return value.CompareTo(start) < 0;
         }
+
     }
 }

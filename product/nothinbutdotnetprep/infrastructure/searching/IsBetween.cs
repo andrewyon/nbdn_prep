@@ -9,10 +9,10 @@ namespace nothinbutdotnetprep.infrastructure.searching
 
         public IsBetween(T start, T end)
         {
-            var starting_part = new FallInRange<T>(new RangeWithNoUpperBound<T>(start))
+            var starting_part = new FallsInRange<T>(new RangeWithNoUpperBound<T>(start))
                 .or(new IsEqualToAny<T>(start));
 
-            var ending_part = new FallInRange<T>(new RangeWithNoLowerBound<T>(end))
+            var ending_part = new FallsInRange<T>(new RangeWithNoLowerBound<T>(end))
                 .or(new IsEqualToAny<T>(end));
 
             the_range = starting_part.and(ending_part);

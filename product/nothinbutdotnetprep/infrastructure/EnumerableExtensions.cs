@@ -14,6 +14,13 @@ namespace nothinbutdotnetprep.infrastructure
             }
         }
 
+        public static IEnumerable<Item> sort_using<Item>(this IEnumerable<Item> items, IComparer<Item> comparer)
+        {
+            var sorted = new List<Item>(items);
+            sorted.Sort(comparer);
+            return sorted;
+        }
+
         public static IEnumerable<Item> one_at_a_time<Item>(this IEnumerable<Item> items)
         {
             foreach (var item in items) yield return item;

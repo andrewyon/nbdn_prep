@@ -3,7 +3,7 @@ using nothinbutdotnetprep.infrastructure.ranges;
 
 namespace nothinbutdotnetprep.infrastructure.searching
 {
-    public static class FilteringExtension
+    public static class FilteringExtensions
     {
         public static Criteria<ItemToFilter> equal_to<ItemToFilter, PropertyType>(
             this ExtensionPoint<ItemToFilter, PropertyType> extension_point, PropertyType value)
@@ -29,7 +29,7 @@ namespace nothinbutdotnetprep.infrastructure.searching
         public static Criteria<ItemToFilter> less_than<ItemToFilter,PropertyType>(this ExtensionPoint<ItemToFilter,PropertyType> extension_point,PropertyType end) where PropertyType : IComparable<PropertyType>
         {
             return create_property_criteria_for(extension_point,
-                                                new FallInRange<PropertyType>(
+                                                new FallsInRange<PropertyType>(
                                                     new RangeWithNoLowerBound<PropertyType>(end)));
         }
 

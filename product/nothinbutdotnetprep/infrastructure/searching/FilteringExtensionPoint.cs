@@ -2,11 +2,6 @@ using System;
 
 namespace nothinbutdotnetprep.infrastructure.searching
 {
-    public interface ExtensionPoint<ItemToFilter,PropertyType>
-    {
-        Criteria<ItemToFilter> create_using(Criteria<PropertyType> specific_criteria);
-    }
-
     public class FilteringExtensionPoint<ItemToFilter, PropertyType> : ExtensionPoint<ItemToFilter,PropertyType>
     {
         Func<ItemToFilter, PropertyType> accessor;
