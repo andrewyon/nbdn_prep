@@ -7,6 +7,7 @@ using Machine.Specifications.DevelopWithPassion.Extensions;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 using nothinbutdotnetprep.collections;
 using nothinbutdotnetprep.infrastructure.searching;
+using nothinbutdotnetprep.infrastructure.sorting;
 using nothinbutdotnetprep.tests.utility;
 using nothinbutdotnetprep.infrastructure;
 
@@ -265,7 +266,9 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_title_ascending = () =>
             {
-                var results = sut.sort_all_movies_by_title_ascending;
+				var comparer = Order<Movie>.by_ascending(x => x.title);
+
+				var results = sut.all_movies().sort_using(comparer);
 
                 results.ShouldContainOnlyInOrder(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom,
                                                  pirates_of_the_carribean, shrek, the_ring,
@@ -274,7 +277,9 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_date_published_descending = () =>
             {
-                var results = sut.sort_all_movies_by_date_published_descending();
+				var comparer = Order<Movie>.by_descending(x => x.date_published);
+
+				var results = sut.all_movies().sort_using(comparer);
 
                 results.ShouldContainOnlyInOrder(theres_something_about_mary, shrek, the_ring, cars,
                                                  pirates_of_the_carribean, a_bugs_life,
@@ -283,7 +288,9 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_date_published_ascending = () =>
             {
-                var results = sut.sort_all_movies_by_date_published_ascending();
+				var comparer = Order<Movie>.by_ascending(x => x.date_published);
+
+				var results = sut.all_movies().sort_using(comparer);
 
                 results.ShouldContainOnlyInOrder(indiana_jones_and_the_temple_of_doom, a_bugs_life,
                                                  pirates_of_the_carribean, cars, the_ring, shrek,
